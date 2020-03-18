@@ -1,0 +1,18 @@
+#results-list {
+    float: left;
+    width: 50%;
+  }
+  
+  #results {
+    cursor: pointer;
+  }
+  
+  #results-list2 {
+    float: left;
+    width: 50%;
+  }
+  
+  #results2 {
+    cursor: pointer;
+  }
+  

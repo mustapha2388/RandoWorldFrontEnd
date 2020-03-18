@@ -1,0 +1,23 @@
+<div id="results-list" *ngIf="choiceResult=='result-one'">
+    <h3>Start Results List</h3>
+    <div id="results">
+      <ul>
+        <li *ngFor="let result of results" (click)="selectResult(result)">
+          {{ result.displayName }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  
+  <div id="results-list2" *ngIf="choiceResult=='result-two'">
+    <h3>Finish Results List</h3>
+    <div id="results2">
+      <ul>
+        <li *ngFor="let result of results2" (click)="selectResult2(result)">
+          {{ result.displayName }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

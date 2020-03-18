@@ -7,6 +7,13 @@ import { RandonneeListComponent } from './components/randonnee-list/randonnee-li
 import { ItineraireListComponent } from './components/itineraire-list/itineraire-list.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { GeocodingComponent } from './components/geocoding/geocoding.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ResultsListComponent } from './components/results-list/results-list.component';
+import { MapPointFormComponent } from './components/map-point-form/map-point-form.component';
+import { MapComponent } from './components/map/map.component';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -14,11 +21,18 @@ import { FooterComponent } from './components/footer/footer.component';
     RandonneeListComponent,
     ItineraireListComponent,
     NavBarComponent,
-    FooterComponent
+    FooterComponent,
+    GeocodingComponent,
+    ResultsListComponent,
+    MapPointFormComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    LeafletModule
   ],
   providers: [],
   bootstrap: [AppComponent]
