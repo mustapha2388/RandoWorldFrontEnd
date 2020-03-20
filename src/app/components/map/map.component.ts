@@ -13,8 +13,8 @@ import { NominatimResponse } from 'src/app/shared/models/nominatim-response';
 export class MapComponent implements OnInit {
 
   map: L.Map;
-  mapPoint: MapPoint;
-  mapPoint2: MapPoint;
+  startPoint: MapPoint;
+  finishPoint: MapPoint;
   options: L.MapOptions;
   lastLayer: any;
   routingControl: L.Routing.Control;
@@ -35,8 +35,8 @@ export class MapComponent implements OnInit {
     this.createMarker();
     this.routingControl = L.Routing.control({
       waypoints: [
-        L.latLng(this.mapPoint.latitude, this.mapPoint.longitude),
-        L.latLng(this.mapPoint2.latitude, this.mapPoint2.longitude)
+        L.latLng(this.startPoint.latitude, this.startPoint.longitude),
+        L.latLng(this.finishPoint.latitude, this.finishPoint.longitude)
       ],
       routeWhileDragging: true,
     }).addTo(this.map);
@@ -69,13 +69,13 @@ export class MapComponent implements OnInit {
   }
 
   private initializeDefaultMapPoint() {
-    this.mapPoint = {
+    this.startPoint = {
       name: 'START',
       latitude: DEFAULT_LATITUDE,
       longitude: DEFAULT_LONGITUDE
     };
 
-    this.mapPoint2 = {
+    this.finishPoint = {
       name: 'FINISH',
       latitude: DEFAULT_LATITUDE2,
       longitude: DEFAULT_LONGITUDE2
@@ -94,22 +94,34 @@ export class MapComponent implements OnInit {
 
     console.log('In updateMapPoint is: ' + point + ' ' + latitude + ' ' + longitude);
     const points: L.Routing.Waypoint[] = this.routingControl.getWaypoints();
-    points[point - 1] = {latLng: L.latLng(latitude, longitude), name};
+    points[point - 1] = { latLng: L.latLng(latitude, longitude), name };
 
     this.routingControl.setWaypoints(points);
 
 
-    this.mapPoint = {
-      latitude,
-      longitude,
-      name: name ? name : this.mapPoint.name
-    };
+    if (point === 1) {
+      this.startPoint = {
+        latitude,
+        longitude,
+        name: name ? name : this.startPoint.name
+      };
+    } else {
+      this.finishPoint = {
+        latitude,
+        longitude,
+        name: name ? name : this.finishPoint.name
+      };
+    }
+
+    console.log(this.startPoint);
+    console.log(this.finishPoint);
+
   }
 
   private createMarker() {
     this.clearMap();
     const mapIcon = this.getDefaultIcon();
-    const coordinates = L.latLng([this.mapPoint.latitude, this.mapPoint.longitude]);
+    const coordinates = L.latLng([this.startPoint.latitude, this.startPoint.longitude]);
     // this.lastLayer = L.marker(coordinates).setIcon(mapIcon).addTo(this.map);
     this.map.setView(coordinates, this.map.getZoom());
   }

@@ -12,7 +12,7 @@
   </div>
   <!-- liste du champs de la recherche-->
   <div id="details-panel">
-    <app-map-point-form [choiceResult]="'result-one'" [mapPoint]="mapPoint"></app-map-point-form>
+    <app-map-point-form [choiceResult]="'result-one'" [mapPoint]="startPoint"></app-map-point-form>
     <app-results-list [choiceResult]="'result-one'" [results]="results" (locationSelected)="getAddress($event,1)">
     </app-results-list>
   </div>
@@ -24,7 +24,7 @@
     <app-geocoding (onSearch2)="refreshSearchList2($event)"></app-geocoding>
     <!-- liste du champs de la recherche-->
     <div id="details-panel">
-      <app-map-point-form  [choiceResult]="'result-two'"  [mapPoint2]="mapPoint2"></app-map-point-form>
+      <app-map-point-form  [choiceResult]="'result-two'"  [mapPoint2]="finishPoint"></app-map-point-form>
       <app-results-list [choiceResult]="'result-two'" [results2]="results2" (locationSelected2)="getAddress($event,2)">
       </app-results-list>
   
