@@ -26,7 +26,6 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     this.initializeDefaultMapPoint();
     this.initializeMapOptions();
   }
@@ -52,6 +51,7 @@ export class MapComponent implements OnInit {
 
   refreshSearchList(results: NominatimResponse[]) {
     this.results = results;
+    console.log('just here');
   }
 
 
@@ -65,7 +65,7 @@ export class MapComponent implements OnInit {
       layers: [
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'OSM' })
       ]
-    }
+    };
   }
 
   private initializeDefaultMapPoint() {
@@ -84,33 +84,24 @@ export class MapComponent implements OnInit {
 
   public onMapClick(e: L.LeafletMouseEvent) {
     this.clearMap();
-    this.updateMapPoint(e.latlng.lat, e.latlng.lng, 0);
+    this.updateMapPoint(e.latlng.lat, e.latlng.lng, 2);
     //this.createMarker();
   }
 
-  private updateMapPoint(latitude: number, longitude: number, point: number, name?: string, ) {
+  private updateMapPoint(latitude: number, longitude: number, point: number, name?: string) {
     // this.routingControl.getWaypoints[point-1].setWaypoints(
     //   L.latLng(latitude, longitude));
-   
-    let points : L.Routing.Waypoint[] = this.routingControl.getWaypoints();
-    points[point - 1] = {latLng: L.latLng(latitude, longitude), name: name};
+
+    console.log('In updateMapPoint is: ' + point + ' ' + latitude + ' ' + longitude);
+    const points: L.Routing.Waypoint[] = this.routingControl.getWaypoints();
+    points[point - 1] = {latLng: L.latLng(latitude, longitude), name};
 
     this.routingControl.setWaypoints(points);
-    /*
-        [
-          L.latLng(latitude, longitude),
 
-           L.latLng(46.92025531537454, 5.449218750000001)
-        ]
-      )
-    else
-      this.routingControl[1].setWaypoints([
-        L.latLng(latitude, longitude),
-      ]);
-*/
+
     this.mapPoint = {
-      latitude: latitude,
-      longitude: longitude,
+      latitude,
+      longitude,
       name: name ? name : this.mapPoint.name
     };
   }
@@ -119,7 +110,7 @@ export class MapComponent implements OnInit {
     this.clearMap();
     const mapIcon = this.getDefaultIcon();
     const coordinates = L.latLng([this.mapPoint.latitude, this.mapPoint.longitude]);
-    //this.lastLayer = L.marker(coordinates).setIcon(mapIcon).addTo(this.map);
+    // this.lastLayer = L.marker(coordinates).setIcon(mapIcon).addTo(this.map);
     this.map.setView(coordinates, this.map.getZoom());
   }
 
@@ -127,12 +118,12 @@ export class MapComponent implements OnInit {
     return L.icon({
       iconSize: [25, 41],
       iconAnchor: [13, 41],
-      iconUrl: 'assets/marker-icon.png'
+      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/images/marker-icon.png'
     });
   }
 
   private clearMap() {
-    if (this.map.hasLayer(this.lastLayer)) this.map.removeLayer(this.lastLayer);
+    if (this.map.hasLayer(this.lastLayer)) { this.map.removeLayer(this.lastLayer); }
   }
 
 }

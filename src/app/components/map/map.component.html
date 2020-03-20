@@ -2,7 +2,8 @@
     <div id="map" leaflet 
     (leafletMapReady)="initializeMap($event)" 
     [leafletOptions]="options"
-      (leafletClick)="onMapClick($event)">
+      (leafletClick)="onMapClick($event)"
+      >
       <!-- champs de recherche point A-->
       <div class="leaflet-bottom leaflet-left">
         <app-geocoding (onSearch)="refreshSearchList($event)"></app-geocoding>
